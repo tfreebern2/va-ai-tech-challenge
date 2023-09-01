@@ -26,17 +26,14 @@ class SemperMadeApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: darkColorScheme,
           textTheme: textTheme),
-      builder: (context, widget) => ResponsiveWrapper.builder(
-        BouncingScrollWrapper.builder(context, widget!),
-        maxWidth: 1200,
-        minWidth: 450,
-        defaultScale: true,
+      builder: (context, child) => ResponsiveBreakpoints.builder(
+        child: child!,
         breakpoints: [
-          const ResponsiveBreakpoint.autoScale(450, name: MOBILE),
-          const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          const ResponsiveBreakpoint.autoScale(1000, name: DESKTOP),
+          const Breakpoint(start: 0, end: 450, name: MOBILE),
+          const Breakpoint(start: 451, end: 800, name: TABLET),
+          const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+          const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
         ],
-        background: Container(color: Colors.white),
       ),
     );
   }

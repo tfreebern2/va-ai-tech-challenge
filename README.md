@@ -18,7 +18,7 @@ Follow these instructions to set up the project locally on your system:
 1. Clone the repository:
 
    ```
-   git clone https://gitlab.com/semperMade/flutter-mui-starter.git
+   git clone https://gitlab.com/bastosmichael/flutter-mui-starter.git
    ```
 
 2. Change directory to the project folder:

@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:semperMade/config/router.dart';
 import 'package:semperMade/theme/color_themes.dart';
 import 'package:semperMade/theme/text_themes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'config/router.dart';
 
 void main() => runApp(const SemperMadeApp());
 

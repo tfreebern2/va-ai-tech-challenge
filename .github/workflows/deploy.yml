@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -48,7 +48,7 @@ jobs:
           name: flutter-web
           path: build/web/
 
-  deploy-gh:
+  deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -58,15 +58,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Download build artifact
-        uses: actions/download-artifact@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          name: flutter-web
-          path: build/web/
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Flutter web
+        run: flutter build web
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: peaceiris/actions-gh-pages@v3
+        uses: actions/deploy-pages@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web/
+          path: build/web/

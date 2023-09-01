@@ -1,36 +1,30 @@
 name: Deploy Flutter app to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      
-      - name: Setup Flutter
+
+      - name: Setup latest Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'latest' # You can specify a version if needed
+          channel: 'stable'
 
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
@@ -54,7 +48,6 @@ jobs:
           name: flutter-web
           path: build/web/
 
-  # Deployment to Github Pages
   deploy-gh:
     environment:
       name: github-pages

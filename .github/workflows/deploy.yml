@@ -46,7 +46,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter web
-        run: flutter build web
+        run: flutter build web --release --web-renderer=auto
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v2

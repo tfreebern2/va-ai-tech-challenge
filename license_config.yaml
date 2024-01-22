@@ -1,0 +1,38 @@
+permittedLicenses:
+  - Apache-2.0
+  - BSD-2-Clause
+  - BSD-3-Clause
+  - MIT
+
+approvedPackages:
+  0BSD:
+    - responsive_framework
+  MIT-Modern-Variant:
+    - sky_engine
+  MPL-2.0:
+    - dbus
+  no-file:
+    - flutter_test
+    - flutter_web_plugins
+  unknown-license:
+    - rxdart
+  Zlib:
+    - vector_math
+
+rejectedLicenses:
+  - GPL
+
+copyrightNotice:
+#  Example
+  mlb: "2000 MLB."
+
+packageLicenseOverride:
+#  Example
+  dodgers: BSD-3-Clause
+
+packageSourceOverride:
+#  Example
+  dodgers: https://dodgers.com
+
+omitDisclaimer:
+  - angles

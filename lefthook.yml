@@ -1,0 +1,9 @@
+pre-commit:
+  scripts:
+    "pre_commit_hook.sh":
+      runner: bash
+
+pre-push:
+  scripts:
+    "pre_push_hook.sh":
+      runner: bash

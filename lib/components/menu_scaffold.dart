@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class MenuScaffold extends StatelessWidget {
+  const MenuScaffold({
+    required this.child,
+    required this.routeNames,
+    super.key,
+  });
+
   final Widget child;
   final List<String> routeNames;
-  const MenuScaffold({Key? key, required this.child, required this.routeNames})
-      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -16,10 +21,12 @@ class MenuScaffold extends StatelessWidget {
             appBar: AppBar(
               title: const Text('SemperMade Demo'),
               actions: routeNames
-                  .map((route) => TextButton(
-                        onPressed: () => context.go('/$route'),
-                        child: Text(route),
-                      ))
+                  .map(
+                    (route) => TextButton(
+                      onPressed: () => context.go('/$route'),
+                      child: Text(route),
+                    ),
+                  )
                   .toList(),
             ),
             body: child,
@@ -33,13 +40,15 @@ class MenuScaffold extends StatelessWidget {
             drawer: Drawer(
               child: ListView(
                 children: routeNames
-                    .map((route) => ListTile(
-                          title: Text(route),
-                          onTap: () {
-                            context.go('/$route');
-                            Navigator.of(context).pop();
-                          },
-                        ))
+                    .map(
+                      (route) => ListTile(
+                        title: Text(route),
+                        onTap: () {
+                          context.go('/$route');
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    )
                     .toList(),
               ),
             ),

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 class HomeController extends StatefulWidget {
-  const HomeController({Key? key}) : super(key: key);
+  const HomeController({super.key});
+
   @override
   State<HomeController> createState() => _HomeControllerState();
 }
+
 class _HomeControllerState extends State<HomeController> {
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +20,6 @@ class _HomeControllerState extends State<HomeController> {
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-          ],
         ),
       ),
     );

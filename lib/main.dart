@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:semperMade/config/router.dart';
 import 'package:semperMade/theme/color_themes.dart';
 import 'package:semperMade/theme/text_themes.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
 void main() => runApp(const SemperMadeApp());
 
@@ -19,13 +18,15 @@ class SemperMadeApp extends StatelessWidget {
       title: 'SemperMade Demo',
       routerConfig: router,
       theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: lightColorScheme,
-          textTheme: textTheme),
+        useMaterial3: true,
+        colorScheme: lightColorScheme,
+        textTheme: textTheme,
+      ),
       darkTheme: ThemeData(
-          useMaterial3: true,
-          colorScheme: darkColorScheme,
-          textTheme: textTheme),
+        useMaterial3: true,
+        colorScheme: darkColorScheme,
+        textTheme: textTheme,
+      ),
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: child!,
         breakpoints: [

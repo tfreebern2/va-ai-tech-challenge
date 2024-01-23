@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:semperMade/config/router.dart';
+import 'package:semperMade/cubits/upload/upload_cubit.dart';
 import 'package:semperMade/theme/color_themes.dart';
 import 'package:semperMade/theme/text_themes.dart';
 
-void main() => runApp(const SemperMadeApp());
+void main() => runApp(const App());
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<UploadCubit>(
+          create: (context) => UploadCubit(),
+        ),
+      ],
+      child: const SemperMadeApp(),
+    );
+  }
+}
 
 /// The main app.
 class SemperMadeApp extends StatelessWidget {
@@ -27,8 +45,8 @@ class SemperMadeApp extends StatelessWidget {
         colorScheme: darkColorScheme,
         textTheme: textTheme,
       ),
-      builder: (context, child) => ResponsiveBreakpoints.builder(
-        child: child!,
+      builder: (context, widget) => ResponsiveBreakpoints.builder(
+        child: BouncingScrollWrapper.builder(context, widget!),
         breakpoints: [
           const Breakpoint(start: 0, end: 450, name: MOBILE),
           const Breakpoint(start: 451, end: 800, name: TABLET),

@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:semperMade/components/menu_scaffold.dart';
-import 'package:semperMade/screens/home/home_screen.dart';
-import 'package:semperMade/screens/record/record_screen.dart';
-import 'package:semperMade/screens/upload/upload_screen.dart';
+import 'package:semperMade/home/ui/home.dart';
+import 'package:semperMade/record/ui/record_screen.dart';
+import 'package:semperMade/upload/ui/upload_screen.dart';
 
 class AppRoutes {
   static const home = 'home';
@@ -46,14 +46,5 @@ final router = GoRouter(
         ),
       ],
     ),
-    // GoRoute(
-    //   path: '/${AppRoutes.home}',
-    //   builder: (BuildContext context, GoRouterState state) {
-    //     return const MenuScaffold(
-    //       routeNames: AppRoutes.routes,
-    //       child: HomeScreen(),
-    //     );
-    //   },
-    // ),
   ],
 );

@@ -1,7 +1,7 @@
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:semperMade/cubits/upload/upload_cubit.dart';
+import 'package:semperMade/upload/cubit/upload_cubit.dart';
 
 class UploadScreen extends StatelessWidget {
   const UploadScreen({super.key});
@@ -47,7 +47,7 @@ class UploadScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: ElevatedButton(
                     onPressed: () => _selectFiles(context),
-                    child: const Text('Upload File(s)'),
+                    child: const Text('Select File(s)'),
                   ),
                 ),
               ],
@@ -58,10 +58,16 @@ class UploadScreen extends StatelessWidget {
           return Center(
             child: Column(
               children: [
-                Text(
-                  'Selected ${state.files.length} file(s)',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+                if (state.files.isNotEmpty)
+                  Text(
+                    'Selected ${state.files.length} file(s)',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                if (state.files.isEmpty)
+                  const Text(
+                    'No files selected',
+                    style: TextStyle(fontSize: 24),
+                  ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: state.files.length,
@@ -99,11 +105,12 @@ class UploadScreen extends StatelessWidget {
                               : 'Add File(s)',
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () =>
-                            context.read<UploadCubit>().upload(state.files),
-                        child: const Text('Upload File(s)'),
-                      ),
+                      if (state.files.isNotEmpty)
+                        ElevatedButton(
+                          onPressed: () =>
+                              context.read<UploadCubit>().upload(state.files),
+                          child: const Text('Upload File(s)'),
+                        ),
                     ],
                   ),
                 ),

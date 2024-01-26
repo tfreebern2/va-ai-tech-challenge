@@ -35,3 +35,6 @@ doc/api/
 Podfile.lock
 
 ## Android
+
+## Environments
+.env

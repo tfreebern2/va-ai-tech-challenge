@@ -91,53 +91,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Gap(100),
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 400),
-                    child: TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        hintText: 'Email',
-                      ),
-                      validator: (val) {
-                        if (val == null || val.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        if (!EmailValidator.validate(val)) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
-                    ),
+                    child: _emailFormField(),
                   ),
                   const Gap(10),
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 400),
-                    child: TextFormField(
-                      controller: _passwordController,
-                      obscureText: _passwordHidden,
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _passwordHidden = !_passwordHidden;
-                            });
-                          },
-                          icon: const Icon(Icons.remove_red_eye),
-                        ),
-                      ),
-                      validator: (val) {
-                        if (val == null || val.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        return null;
-                      },
-                    ),
+                    child: _passwordFormField(),
                   ),
                   const Gap(20),
-                  ElevatedButton(
-                    onPressed: _isLoading ? null : _signIn,
-                    child: const Text('Login'),
-                  ),
+                  _loginButton(),
                 ],
               ),
             ),
@@ -147,33 +109,73 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       return Scaffold(
         appBar: AppBar(title: const Text('ZCRIPT AI')),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
-                  ),
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
-                  ),
-                ),
-                const Gap(20),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-                  },
-                  child: const Text('Login'),
-                ),
-              ],
+        body: Form(
+          key: _formKey,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  _emailFormField(),
+                  _passwordFormField(),
+                  const Gap(20),
+                  _loginButton(),
+                ],
+              ),
             ),
           ),
         ),
       );
     }
+  }
+
+  TextFormField _emailFormField() {
+    return TextFormField(
+      controller: _emailController,
+      keyboardType: TextInputType.emailAddress,
+      decoration: const InputDecoration(
+        hintText: 'Email',
+      ),
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return 'Please enter your email';
+        }
+        if (!EmailValidator.validate(val)) {
+          return 'Please enter a valid email';
+        }
+        return null;
+      },
+    );
+  }
+
+  TextFormField _passwordFormField() {
+    return TextFormField(
+      controller: _passwordController,
+      obscureText: _passwordHidden,
+      decoration: InputDecoration(
+        hintText: 'Password',
+        suffixIcon: IconButton(
+          onPressed: () {
+            setState(() {
+              _passwordHidden = !_passwordHidden;
+            });
+          },
+          icon: const Icon(Icons.remove_red_eye),
+        ),
+      ),
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return 'Please enter your password';
+        }
+        return null;
+      },
+    );
+  }
+
+  ElevatedButton _loginButton() {
+    return ElevatedButton(
+      onPressed: _isLoading ? null : _signIn,
+      child: const Text('Login'),
+    );
   }
 }

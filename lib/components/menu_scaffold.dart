@@ -63,10 +63,17 @@ class MenuScaffold extends StatelessWidget {
                 .map(
                   (route) => ListTile(
                     contentPadding: const EdgeInsets.all(8),
-                    title: Text(route),
+                    title: Text(route.substring(1)),
                     onTap: () {
-                      context.go('/$route');
-                      Navigator.of(context).pop();
+                      if (route != currentRoute) {
+                        // Replace the current route in the navigation stack
+                        if (route == AppRoutes.record ||
+                            route == AppRoutes.upload) {
+                          context.go('${AppRoutes.home}$route');
+                        } else {
+                          context.go(route);
+                        }
+                      }
                     },
                   ),
                 )

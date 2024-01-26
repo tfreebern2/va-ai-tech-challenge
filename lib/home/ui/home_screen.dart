@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:semperMade/config/locator.dart';
+import 'package:semperMade/config/router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ElevatedButton(
                 onPressed: () {
                   firebaseAuth.signOut();
-                  context.go('/login');
+                  context.go(AppRoutes.login);
                 },
                 child: const Text('Sign Out'),
               ),

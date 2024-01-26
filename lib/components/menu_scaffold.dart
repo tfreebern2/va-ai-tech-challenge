@@ -37,13 +37,11 @@ class MenuScaffold extends StatelessWidget {
                     if (route == currentRoute) {
                       // Do nothing
                       return;
-                    } else if (route == AppRoutes.home) {
-                      context.go('/');
                     } else {
-                      context.go('/$route');
+                      context.go(route);
                     }
                   },
-                  child: Text(route),
+                  child: Text(route.substring(1)),
                 ),
               )
               .toList(),

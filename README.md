@@ -90,6 +90,11 @@ xcodebuild -exportArchive -archivePath build/Runner.xcarchive -exportOptionsPlis
 
 ## Deployment
 
+### Firebase App Distribution
+1. Run `firebase login` to login to your Firebase account.
+2. Run `firebase init` to initialize Firebase for your project.
+3. Run `firebase deploy` to deploy your app to Firebase App Distribution.
+
 ### Google Play Store
 
 1. Follow the guide here to upload your APK: [Publish your app](https://support.google.com/googleplay/android-developer/answer/113469)

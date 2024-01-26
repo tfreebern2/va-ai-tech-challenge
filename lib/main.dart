@@ -1,12 +1,33 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:semperMade/config/environment_variables.dart';
+import 'package:semperMade/config/locator.dart';
 import 'package:semperMade/config/router.dart';
+import 'package:semperMade/services/snackbar_service.dart';
 import 'package:semperMade/theme/color_themes.dart';
 import 'package:semperMade/theme/text_themes.dart';
 import 'package:semperMade/upload/cubit/upload_cubit.dart';
 
-void main() => runApp(const App());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: EnvironmentVariables.firebaseApiKey,
+      appId: EnvironmentVariables.firebaseAppId,
+      messagingSenderId: EnvironmentVariables.firebaseMessagingSenderId,
+      projectId: EnvironmentVariables.firebaseProjectId,
+      authDomain: EnvironmentVariables.firebaseAuthDomain,
+      storageBucket: EnvironmentVariables.firebaseStorageBucket,
+    ),
+  );
+
+  setupLocator();
+
+  runApp(const App());
+}
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -35,6 +56,7 @@ class SemperMadeApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SemperMade Demo',
       routerConfig: router,
+      scaffoldMessengerKey: locator<SnackBarService>().scaffoldMessengerKey,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: lightColorScheme,

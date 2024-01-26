@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:semperMade/config/router.dart';
 import 'package:semperMade/theme/color_themes.dart';
 import 'package:semperMade/theme/text_themes.dart';
 import 'package:semperMade/upload/cubit/upload_cubit.dart';
 
-void main() => runApp(const App());
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+  runApp(const App());
+}
 
 class App extends StatelessWidget {
   const App({super.key});

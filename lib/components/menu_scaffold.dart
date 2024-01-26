@@ -34,11 +34,14 @@ class MenuScaffold extends StatelessWidget {
               .map(
                 (route) => TextButton(
                   onPressed: () {
-                    if (route == currentRoute) {
-                      // Do nothing
-                      return;
-                    } else {
-                      context.go(route);
+                    if (route != currentRoute) {
+                      // Replace the current route in the navigation stack
+                      if (route == AppRoutes.record ||
+                          route == AppRoutes.upload) {
+                        context.go('${AppRoutes.home}$route');
+                      } else {
+                        context.go(route);
+                      }
                     }
                   },
                   child: Text(route.substring(1)),

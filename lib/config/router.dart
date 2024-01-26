@@ -54,24 +54,26 @@ final router = GoRouter(
           child: HomeScreen(),
         );
       },
-    ),
-    GoRoute(
-      path: AppRoutes.record,
-      builder: (BuildContext context, GoRouterState state) {
-        return const MenuScaffold(
-          routeNames: AppRoutes.routes,
-          child: RecordScreen(),
-        );
-      },
-    ),
-    GoRoute(
-      path: AppRoutes.upload,
-      builder: (BuildContext context, GoRouterState state) {
-        return const MenuScaffold(
-          routeNames: AppRoutes.routes,
-          child: UploadScreen(),
-        );
-      },
+      routes: [
+        GoRoute(
+          path: AppRoutes.record.substring(1),
+          builder: (BuildContext context, GoRouterState state) {
+            return const MenuScaffold(
+              routeNames: AppRoutes.routes,
+              child: RecordScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.upload.substring(1),
+          builder: (BuildContext context, GoRouterState state) {
+            return const MenuScaffold(
+              routeNames: AppRoutes.routes,
+              child: UploadScreen(),
+            );
+          },
+        ),
+      ],
     ),
   ],
 );

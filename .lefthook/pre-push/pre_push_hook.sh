@@ -3,16 +3,29 @@
 # Check licenses
 if [[ "$(uname -s)" =~ MINGW|MSYS ]]; then
     lic_ck.bat check-licenses --config license_config.yaml
-
-    ## Static Code Analysis
-    flutter analyze
-    ### Run tests
-    flutter test
 else
     lic_ck check-licenses --config license_config.yaml
+fi
 
-    ## Static Code Analysis
-    fvm flutter analyze
-    ### Run tests
+# Static Code Analysis
+ANALYZE_OUTPUT=""
+if [[ "$(uname -s)" =~ MINGW|MSYS ]]; then
+    ANALYZE_OUTPUT=$(flutter analyze)
+else
+    ANALYZE_OUTPUT=$(fvm flutter analyze)
+fi
+
+echo "$ANALYZE_OUTPUT"
+
+# Check if there are any issues found by Flutter analyze
+if echo "$ANALYZE_OUTPUT" | grep -q "info •"; then
+    echo "Analysis found issues."
+    exit 1
+fi
+
+# Run tests
+if [[ "$(uname -s)" =~ MINGW|MSYS ]]; then
+    flutter test
+else
     fvm flutter test
 fi

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:semperMade/config/locator.dart';
@@ -24,9 +23,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _getInitialSession() async {
     await Future<void>.delayed(const Duration(seconds: 2));
     try {
-      final user = FirebaseAuth.instance.currentUser;
+      final session = supabase.auth.currentSession;
       if (context.mounted) {
-        user == null ? context.go(AppRoutes.login) : context.go(AppRoutes.home);
+        session == null
+            ? context.go(AppRoutes.login)
+            : context.go(AppRoutes.home);
       }
     } catch (_) {
       _snackBarService.showErrorSnackBar(

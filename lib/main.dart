@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -9,6 +8,7 @@ import 'package:semperMade/services/snackbar_service.dart';
 import 'package:semperMade/theme/color_themes.dart';
 import 'package:semperMade/theme/text_themes.dart';
 import 'package:semperMade/upload/cubit/upload_cubit.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,16 +16,10 @@ void main() async {
   // Load .env file
   await dotenv.load();
 
-  // Initialize Firebase
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: dotenv.env['FIREBASE_API_KEY'] ?? 'firebaseApiKey',
-      appId: dotenv.env['FIREBASE_APP_ID'] ?? 'firebaseAppId',
-      messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID'] ?? 'firebaseMessagingSenderId',
-      projectId: dotenv.env['FIREBASE_PROJECT_ID'] ?? 'firebaseProjectId',
-      authDomain: dotenv.env['FIREBASE_AUTH_DOMAIN'] ?? 'firebaseAuthDomain',
-      storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET'] ?? 'firebaseStorageBucket',
-    ),
+  // Initialize Supabase
+  await Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL'] ?? 'supabaseUrl',
+    anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? 'supabaseAnonKey',
   );
 
   setupLocator();

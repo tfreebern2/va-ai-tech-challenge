@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const Spacer(),
               ElevatedButton(
                 onPressed: () {
-                  firebaseAuth.signOut();
+                  supabase.auth.signOut();
                   context.go(AppRoutes.login);
                 },
                 child: const Text('Sign Out'),

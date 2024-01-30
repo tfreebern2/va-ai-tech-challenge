@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:semperMade/config/environment_variables.dart';
 import 'package:semperMade/config/locator.dart';
 import 'package:semperMade/config/router.dart';
 import 'package:semperMade/services/snackbar_service.dart';
@@ -14,12 +14,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Load .env file
-  await dotenv.load();
+  // await dotenv.load();
 
   // Initialize Supabase
   await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL'] ?? 'supabaseUrl',
-    anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? 'supabaseAnonKey',
+    url: EnvironmentVariables.supabaseUrl,
+    anonKey: EnvironmentVariables.supabaseAnonKey,
   );
 
   setupLocator();

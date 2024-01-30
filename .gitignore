@@ -38,4 +38,4 @@ Podfile.lock
 ## Android
 
 ## Environments
-.env
+#.env

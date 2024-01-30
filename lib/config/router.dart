@@ -1,9 +1,9 @@
 // Routes
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:semperMade/components/menu_scaffold.dart';
 import 'package:semperMade/components/splash_screen.dart';
+import 'package:semperMade/config/locator.dart';
 import 'package:semperMade/home/ui/home.dart';
 import 'package:semperMade/login/login_screen.dart';
 import 'package:semperMade/record/ui/record_screen.dart';
@@ -25,7 +25,7 @@ final router = GoRouter(
   redirect: (BuildContext context, GoRouterState state) async {
     if (state.path != AppRoutes.login) {
       // check Firebase user session
-      final user = FirebaseAuth.instance.currentUser;
+      final user = supabase.auth.currentUser;
       if (user == null) {
         return AppRoutes.login;
       }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +8,7 @@ import 'package:responsive_framework/responsive_breakpoints.dart';
 import 'package:semperMade/config/locator.dart';
 import 'package:semperMade/config/router.dart';
 import 'package:semperMade/services/snackbar_service.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  late final StreamSubscription<User?> _authSubscription;
+  late final StreamSubscription<AuthState> _authSubscription;
 
   var _isLoading = false;
   var _passwordHidden = true;
@@ -32,11 +32,9 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     var haveNavigated = false;
-    _authSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null && !haveNavigated) {
-        context.go(AppRoutes.login);
-      } else {
+    _authSubscription = supabase.auth.onAuthStateChange.listen((data) {
+      final session = data.session;
+      if (session != null && !haveNavigated) {
         haveNavigated = true;
         context.go(AppRoutes.home);
       }
@@ -57,13 +55,13 @@ class _LoginScreenState extends State<LoginScreen> {
         _isLoading = true;
       });
       try {
-        await firebaseAuth.signInWithEmailAndPassword(
+        await supabase.auth.signInWithPassword(
           email: _emailController.text,
           password: _passwordController.text,
         );
-      } on FirebaseAuthException catch (error) {
+      } on AuthException catch (error) {
         _snackBarService.showErrorSnackBar(
-          error.message ?? 'Error occurred during sign in',
+          error.message,
           stackTrace: StackTrace.current,
         );
         setState(() => _isLoading = false);

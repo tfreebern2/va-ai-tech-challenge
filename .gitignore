@@ -33,6 +33,7 @@ doc/api/
 
 ## iOS
 Podfile.lock
+.DS_Store
 
 ## Android
 
